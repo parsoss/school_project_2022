@@ -2,11 +2,12 @@ import os
 import glob
 import pathlib
 import sys
+from google.colab import drive
 
 isdanger = 0
 isexist = 0
 
-file_dir = input("검사를 원하는 파일의 경로와 이름을 입력해주십시오. (확장명 포함)")
+file_dir = input("검사를 원하는 파일의 경로와 이름을 입력해주십시오. (확장명 포함)  ")
 
 path = pathlib.Path(file_dir)
 
@@ -56,7 +57,8 @@ elif(p=="ppt"):
 elif(p==".bat") or (p==".cmd"):
     print("윈도우 cmd 실행파일입니다.")
 
-files = glob.glob(file_dir)
+files = glob.glob("/content/gdrive/My Drive/d/"+str(fn)+".txt")
+print("/content/gdrive/My Drive/d/"+str(fn)+".txt")
 for name in files:
     if not os.path.isdir(name):
         src = os.path.splitext(name)
@@ -73,35 +75,26 @@ if(isexist == 0):
 file_ne=[0, 0, 0, 0, 0, 0, 0]
 i=0
 for i in range (1, 5):
-    with open(str(i)+".txt", "r", encoding="utf-8") as f:
+    with open("/content/gdrive/My Drive/d/"+str(i)+".txt", "r", encoding="utf-8") as f:
         file_ne[i] = f.read().replace('\n', ' ')
 
 asdf = 0
-with open(str(fn)+".txt", "r", encoding="utf-8") as fne:
+with open("/content/gdrive/My Drive/d/"+str(fn)+".txt", "r", encoding="utf-8") as fne:
         asdf = fne.read().replace('\n', ' ')
 
 newasdf= 0
         
 for i in range (1, 5):
-    if(file_ne[i] in asdf):
+    if(asdf in file_ne[i]):
         isdanger = 1
         print(file_ne[i])
-        newasdf = asdf.strip(file_ne[i])
-        fin = open(fn+".txt", "rt", encoding="utf-8")
-        with open(fn+".txt", "rt", encoding="utf-8") as file:
-            x = file.read()
-
-        with open(fn+".txt", "wt", encoding="utf-8") as file:
-            x = x.replace(asdf,"f")
-            fin.write(x)
-
-
-if(isdanger):
-    print("위험합니다")
-else:
-    print("안전합니다.")
+        print("바이러스가 발견되었습니다. 치료를 시작합니다.")
+        os.remove("/content/gdrive/My Drive/d/"+str(fn)+".txt")
+        print("치료가 완료되었습니다")
+    else:
+        print("안전합니다.")
     
-ff = glob.glob(str(path.parent)+"/"+str(fn)+".txt")
+ff = glob.glob("/content/gdrive/My Drive/d/"+str(path.parent)+"/"+str(fn)+".txt")
 for name in ff:
     if not os.path.isdir(name):
         src = os.path.splitext(name)
