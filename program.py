@@ -83,16 +83,16 @@ with open("/content/gdrive/My Drive/d/"+str(fn)+".txt", "r", encoding="utf-8") a
         asdf = fne.read().replace('\n', ' ')
 
 newasdf= 0
-        
+isdanger = 0
 for i in range (1, 5):
     if(asdf in file_ne[i]):
         isdanger = 1
         print(file_ne[i])
         print("바이러스가 발견되었습니다. 치료를 시작합니다.")
-        os.remove("/content/gdrive/My Drive/d/"+str(fn)+".txt")
-        print("치료가 완료되었습니다")
-    else:
-        print("안전합니다.")
+        os.remove("/content/gdrive/My Drive/학교_진로발표/"+str(fn)+".txt")
+        print("치료가 완료되었읍니다")
+if(!isdanger):
+    print("안전합니다.")
     
 ff = glob.glob("/content/gdrive/My Drive/d/"+str(path.parent)+"/"+str(fn)+".txt")
 for name in ff:
