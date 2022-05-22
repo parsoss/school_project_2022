@@ -3,6 +3,7 @@ import glob
 import pathlib
 import sys
 from google.colab import drive
+import chardet
 
 isdanger = 0
 isexist = 0
@@ -20,7 +21,25 @@ print('파일 이름:', fn)
 p = path.suffix
 
 print("파일 확장명: "+ p)
+rawdata = open(file_dir, 'rb').read()
+result = chardet.detect(rawdata)
+enc = result['encoding']
 
+
+
+files = glob.glob("/content/gdrive/My Drive/학교_진로발표/"+str(fn)+".txt")
+print("/content/gdrive/My Drive/학교_진로발표/"+str(fn)+".txt")
+for name in files:
+    if not os.path.isdir(name):
+        src = os.path.splitext(name)
+        os.rename(name, src[0]+'.txt')
+        isexist = 1
+        
+        
+if(isexist == 0):
+    print("파일이 존재하지 않습니다.")
+    sys.exit(0)        
+        
 if p == ".vbs":
     print("윈도우가 만든 스크립트 언어이며, 막강한 권한을 가지고 있어 바이러스로 자주 이용되니 주의하셔야 됩니다.")
 elif p == ".exe":
@@ -56,30 +75,14 @@ elif(p=="ppt"):
     print("프레전테이션(파워포인트) 파일입니다.")
 elif(p==".bat") or (p==".cmd"):
     print("윈도우 cmd 실행파일입니다.")
-
-files = glob.glob("/content/gdrive/My Drive/d/"+str(fn)+".txt")
-print("/content/gdrive/My Drive/d/"+str(fn)+".txt")
-for name in files:
-    if not os.path.isdir(name):
-        src = os.path.splitext(name)
-        os.rename(name, src[0]+'.txt')
-        isexist = 1
-        
-        
-if(isexist == 0):
-    print("파일이 존재하지 않습니다.")
-    sys.exit(0)        
-        
-        
-        
 file_ne=[0, 0, 0, 0, 0, 0, 0]
 i=0
 for i in range (1, 5):
-    with open("/content/gdrive/My Drive/d/"+str(i)+".txt", "r", encoding="utf-8") as f:
+    with open("/content/gdrive/My Drive/학교_진로발표/"+str(i)+".txt", "r", encoding=enc) as f:
         file_ne[i] = f.read().replace('\n', ' ')
 
 asdf = 0
-with open("/content/gdrive/My Drive/d/"+str(fn)+".txt", "r", encoding="utf-8") as fne:
+with open("/content/gdrive/My Drive/학교_진로발표/"+str(fn)+".txt", "r", encoding=enc) as fne:
         asdf = fne.read().replace('\n', ' ')
 
 newasdf= 0
@@ -94,7 +97,7 @@ for i in range (1, 5):
 if(not isdanger):
     print("안전합니다.")
     
-ff = glob.glob("/content/gdrive/My Drive/d/"+str(path.parent)+"/"+str(fn)+".txt")
+ff = glob.glob("/content/gdrive/My Drive/학교_진로발표/"+str(path.parent)+"/"+str(fn)+".txt")
 for name in ff:
     if not os.path.isdir(name):
         src = os.path.splitext(name)
