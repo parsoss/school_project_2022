@@ -33,5 +33,4 @@ def review_sentiment(review_t):
         print("%s : %s" % (t, v))
         result += v
     return result / len(review_t)
-token = ['서비스', '맛집', '냄새']
 review_sentiment(token)
