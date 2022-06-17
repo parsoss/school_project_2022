@@ -92,7 +92,8 @@ for i in range (1, 5):
         print(file_ne[i])
         print("바이러스가 발견되었습니다. 치료를 시작합니다.")
         os.remove("/content/gdrive/My Drive/학교_진로발표/"+str(fn)+".txt")
-        print("치료가 완료되었읍니다")
+        print("치료가 완료되었습니다")
+        break
 if(not isdanger):
     print("안전합니다.")
     
